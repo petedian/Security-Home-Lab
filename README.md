@@ -1,4 +1,4 @@
-# Security-Home-Lab# PROJECTNAME
+# Security-Home-Lab
 
 ## Objective
 [Brief Objective - Remove this afterwards]
@@ -22,10 +22,8 @@ The Detection Lab project aimed to establish a controlled environment for simula
 - Telemetry generation tools to create realistic network traffic and attack scenarios.
 
 ## Steps
-drag & drop screenshots here or use imgur and reference them using imgsrc
 
-Every screenshot should have some text explaining what the screenshot is about.
+Sec Lab: Network Diagram
 
-Example below.
+<img width="617" height="792" alt="Infrastructure Diagram" src="https://github.com/user-attachments/assets/943587c6-17b6-4c6f-a88c-bb2dfdccd4a4" />
 
-*Ref 1: Network Diagram*
