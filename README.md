@@ -23,7 +23,7 @@ The Detection Lab project aimed to establish a controlled environment for simula
 
 ## Steps
 
-Sec Lab: Network Diagram
+Ref 1: Network Diagram
 
 <img width="617" height="792" alt="Infrastructure Diagram" src="https://github.com/user-attachments/assets/943587c6-17b6-4c6f-a88c-bb2dfdccd4a4" />
 
