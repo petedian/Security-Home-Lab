@@ -258,13 +258,13 @@ Transition to Research: With the infrastructure finalized, the lab is now transi
 
 ### Skills Learned
 
-- Advanced understanding of SIEM concepts and practical application.
-- Proficiency in analyzing and interpreting network logs.
-- Ability to generate and recognize attack signatures and patterns.
-- Enhanced knowledge of network protocols and security vulnerabilities.
-- Development of critical thinking and problem-solving skills in cybersecurity.
+-Building Enterprise Networks: Set up a full-scale security lab on a Dell R620 using Proxmox and Cisco gear to simulate a real-world corporate network.
+-Network Security & Isolation: Mastered traffic control by using pfSense and Open vSwitch (OVS) to keep attack traffic strictly separated from the rest of the lab.
+-Active Directory Management: Built a "victim" domain from scratch, using Group Policies (GPOs) to force the systems to log every detail for our security tools.
+-SIEM & Telemetry Expertise: Linked Sysmon and Wazuh to catch malicious activity in real-time, turning raw logs into actionable security alerts.
+-Threat Hunting & Forensics: Learned how to "hunt" for hackers using Velociraptor, allowing me to pull forensic data and find hidden threats instantly.
 
-### Follow my main page HERE to see all and upcoming Projects.
+#### Follow my main page HERE to see all and upcoming Projects.
 
 
 
