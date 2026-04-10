@@ -264,7 +264,7 @@ Transition to Research: With the infrastructure finalized, the lab is now transi
 - Enhanced knowledge of network protocols and security vulnerabilities.
 - Development of critical thinking and problem-solving skills in cybersecurity.
 
-Follow my main page HERE to see all and upcoming Projects.
+### Follow my main page HERE to see all and upcoming Projects.
 
 
 
