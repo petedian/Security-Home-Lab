@@ -142,6 +142,32 @@ Ref 16-17: Joined Users to Domain
 
 <img width="1908" height="942" alt="Setup, Join endpoint to Domain" src="https://github.com/user-attachments/assets/68cd5bcb-a1d3-4390-9d8c-fa7bd5745610" />
 
+### Deployment of Microsoft Sysmon
+To augment the standard Windows Event Logs, we deployed Microsoft Sysmon across all "E Corp" endpoints. This provides the high-fidelity telemetry required for advanced threat hunting and behavioral analysis.
+
+Implementation Highlights:
+
+Granular Visibility: Configured Sysmon to capture critical events that standard logging often misses, such as Process Creation (Event ID 1) with full command-line arguments, Network Connections (Event ID 3), and File Creation (Event ID 11).
+
+Configuration Schema: Utilized a customized configuration file (based on industry standards like SwiftOnSecurity) to filter out "noise" while ensuring that suspicious activity—such as Rundll32 executing code or unusual PowerShell behavior—is strictly logged.
+
+SIEM Integration: Established the foundation for Wazuh to ingest these Sysmon logs, allowing us to build detection rules based on specific sub-processes and hash values (SHA256) captured by the tool.
+
+Verification: Confirmed successful installation via the Windows Event Viewer (Applications and Services Logs > Microsoft > Windows > Sysmon > Operational), ensuring logs were being generated in real-time.
+
+Ref 18-22: Sysmon
+
+<img width="1889" height="850" alt="Setup Sysmon 1" src="https://github.com/user-attachments/assets/de0c89e1-8186-4f5d-8e46-e8fa6c0a612d" />
+
+<img width="1889" height="963" alt="Setup Sysmon 2 Github Modular" src="https://github.com/user-attachments/assets/ecd11372-694b-4428-99f3-4db0ddf2e4ae" />
+
+<img width="1900" height="978" alt="Setup Sysmon 3 Modular Cut Paste to Notepad" src="https://github.com/user-attachments/assets/144c7d3b-d195-4925-8b2d-58792e2c9f90" />
+
+<img width="1519" height="808" alt="Setup Sysmon 4 CLI Command" src="https://github.com/user-attachments/assets/290f424e-3291-40e7-a9c5-24870872817f" />
+
+<img width="1689" height="956" alt="Setup Sysmon Event Viewer" src="https://github.com/user-attachments/assets/a69ab2a7-258b-4a50-9208-285f9c17d499" />
+
+
 
 
 
