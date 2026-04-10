@@ -142,6 +142,29 @@ Ref 16-17: Joined Users to Domain
 
 <img width="1908" height="942" alt="Setup, Join endpoint to Domain" src="https://github.com/user-attachments/assets/68cd5bcb-a1d3-4390-9d8c-fa7bd5745610" />
 
+### Configuration of Enterprise SMB File Shares
+
+To simulate a realistic corporate data environment and create targets for lateral movement detection, we configured an SMB (Server Message Block) share on the "E Corp" Domain Controller (DC-1).
+
+Implementation Highlights:
+
+Resource Provisioning: Created a dedicated directory structure (C:\Shares\Company_Data) to act as a centralized file repository for domain users.
+
+Permission Management: Configured NTFS and Share Permissions for the newly created domain users and groups, ensuring "least privilege" access models were followed.
+
+Security Auditing: Enabled File Object Auditing within the Windows Security Policy. This ensures that every time a file is accessed, modified, or deleted, a log is generated (Event ID 4663), which is then picked up by our SOC monitoring tools.
+
+SOC Utility: This share serves as a primary target for "In-House" attack simulations, such as searching for sensitive documents or testing for "SambaCry" style exploits and unauthorized network share enumeration.
+
+Ref 18-20: SMB Share
+
+<img width="1885" height="1015" alt="Setup New Share SMB Share Quick" src="https://github.com/user-attachments/assets/6aecab69-f21f-4fd7-9eec-b1bb065f40d5" />
+
+<img width="1821" height="956" alt="Setup SMB Share Command Line" src="https://github.com/user-attachments/assets/1515e3a8-e3ff-4fea-a40b-044623cd3de0" />
+
+<img width="1324" height="879" alt="Setup SMB Share 2 Command Line Confirm" src="https://github.com/user-attachments/assets/309c9276-3984-4b7a-b071-3895ffc08e12" />
+
+
 ### Deployment of Microsoft Sysmon
 To augment the standard Windows Event Logs, we deployed Microsoft Sysmon across all "E Corp" endpoints. This provides the high-fidelity telemetry required for advanced threat hunting and behavioral analysis.
 
@@ -155,7 +178,7 @@ SIEM Integration: Established the foundation for Wazuh to ingest these Sysmon lo
 
 Verification: Confirmed successful installation via the Windows Event Viewer (Applications and Services Logs > Microsoft > Windows > Sysmon > Operational), ensuring logs were being generated in real-time.
 
-Ref 18-22: Sysmon
+Ref 21-25: Sysmon
 
 <img width="1889" height="850" alt="Setup Sysmon 1" src="https://github.com/user-attachments/assets/de0c89e1-8186-4f5d-8e46-e8fa6c0a612d" />
 
@@ -166,8 +189,6 @@ Ref 18-22: Sysmon
 <img width="1519" height="808" alt="Setup Sysmon 4 CLI Command" src="https://github.com/user-attachments/assets/290f424e-3291-40e7-a9c5-24870872817f" />
 
 <img width="1689" height="956" alt="Setup Sysmon Event Viewer" src="https://github.com/user-attachments/assets/a69ab2a7-258b-4a50-9208-285f9c17d499" />
-
-
 
 
 
