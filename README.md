@@ -264,8 +264,8 @@ Transition to Research: With the infrastructure finalized, the lab is now transi
 -SIEM & Telemetry Expertise: Linked Sysmon and Wazuh to catch malicious activity in real-time, turning raw logs into actionable security alerts.
 -Threat Hunting & Forensics: Learned how to "hunt" for hackers using Velociraptor, allowing me to pull forensic data and find hidden threats instantly.
 
-#### Follow my main page HERE to see all and upcoming Projects.
-
+#### Follow my main page below to see all and upcoming Projects.
+[![](https://img.shields.io/badge/Main_Page-Visit_My_GitHub-blue?style=for-the-badge&logo=github)](https://github.com/petedian)
 
 
 
