@@ -1,4 +1,4 @@
-# Security-Home-Lab
+# Security-Operations-Home-Lab
 
 ## Lab Architecture & Technical Overview
 
@@ -46,9 +46,29 @@ Ref 4:Proxmox Node with Operating Systems Installed via ISO Images
 
 
 ### pfSense: 
+Installed ISO Image and will come back to setup later in series after we add OpenVSwtich (OVS)
+
+
+### Installed SPICE 
+(Simple Protocol for Independent Computing Environments):
+Integrated to provide high-performance, low-latency remote console access to the virtualized endpoints. This allowed for seamless interaction with the Windows 11 targets and Kali Linux attack node, supporting multi-monitor setups and shared clipboards between the lab and the host machine. 
+
+Ref 5: SPICE
+
+<img width="1895" height="252" alt="Setup Spice" src="https://github.com/user-attachments/assets/48cddf28-9273-40dc-9699-e0b765f79e05" />
+
+
+### Open vSwitch (OVS) Integration:
+Replaced standard Linux bridges with Open vSwitch within the Proxmox hypervisor. This upgrade provides a more robust, SDN-ready (Software Defined Networking) foundation, enabling advanced features like VLAN tagging at the virtual switch level and providing the infrastructure necessary for deep packet inspection and network telemetry.
+
+Ref 6: OVS
+
+<img width="1134" height="654" alt="Setup OVS" src="https://github.com/user-attachments/assets/8555952f-cda6-4458-86fd-c5260f5f0f23" />
+
+### pfSense: 
 Provided granular firewall rules between the Attack, Victim, and SOC networks.
 
-Ref 5-9: PfSense
+Ref 7-11: PfSense
 <img width="1310" height="498" alt="Firewall Rules 1" src="https://github.com/user-attachments/assets/e172bc8b-613a-4b89-8a70-0a1be214d3b5" />
 
 <img width="1241" height="472" alt="Firewall Rules 2" src="https://github.com/user-attachments/assets/a418c7e0-d2e9-4dcf-9a38-482821c862a8" />
@@ -59,24 +79,70 @@ Ref 5-9: PfSense
 
 <img width="1323" height="829" alt="Setup pfSense" src="https://github.com/user-attachments/assets/340be815-d313-4a4c-98bd-3c3a74199aad" />
 
+### Deployment of Active Directory Domain Services (AD DS)
+With the network infrastructure and gateways established, we deployed a Windows Server instance to serve as the backbone of the "E Corp" corporate environment. This step was essential for establishing centralized identity management and providing a realistic target for SOC monitoring and attack simulations.
+
+Key Implementation Details:
+
+Domain Controller Promotion: Configured the primary server as a Domain Controller (DC-1) for the ecorp.local forest.
+
+DNS & DHCP Integration: Set up integrated DNS to handle internal name resolution for all domain-joined assets, ensuring seamless communication across the 10.1.2.0/24 subnet.
+
+Organizational Unit (OU) Structure: Created a logical hierarchy within AD to manage users, groups, and workstations, mirroring a standard business environment.
+
+Group Policy Objects (GPOs): Initialized baseline security policies and audit logging configurations. This is a critical step for the SOC lab, as it ensures the Windows endpoints generate the necessary event logs (like Process Creation and PowerShell logging) for Wazuh to ingest.
+
+Snapshot Strategy: Prior to promotion, a Proxmox snapshot was taken to establish a "clean slate" recovery point for the domain environment.
+
+Ref 12: Active Directory
+
+<img width="960" height="725" alt="Setup Users and Groups" src="https://github.com/user-attachments/assets/f97fc61f-852d-48ff-8fc5-0767a12e5c15" />
+
+### Intentional Deactivation of Windows Defender
+During the "E Corp" domain setup, Windows Defender was intentionally disabled across the Windows endpoints and the Domain Controller. While counterintuitive in a production environment, this was done for two specific technical reasons:
+
+Telemetry Isolation: By removing the "noise" and automated blocking of Windows Defender, we ensured that the Wazuh and Velociraptor agents were the primary sources of telemetry. This allows us to see exactly how these specific SOC tools detect and alert on raw, unblocked malicious activity.
+
+Attack Simulation Accuracy: In a learning environment, Defender often "kills" exploits before they can execute. Disabling it allows us to study the full lifecycle of an attack—from initial execution to lateral movement—providing a much richer dataset for log analysis and behavioral detection tuning.
+
+Performance Optimization: Reducing background resource consumption on the virtualized nodes ensures the Dell R620 can maintain high performance during heavy simulation testing.
+
+Ref 13-14: Disabled Windows Security
+
+<img width="1890" height="996" alt="Setup Disable Windows Defender" src="https://github.com/user-attachments/assets/eca3e7dc-1883-4936-8b22-6cebe05ff2fb" />
+
+<img width="1854" height="986" alt="Start UP Enable Disable GP MS Defender" src="https://github.com/user-attachments/assets/ac226cdc-b06d-4172-8bbb-816ec8efc630" />
 
 
+### User Management & Domain Integration
 
-### Installed SPICE 
-(Simple Protocol for Independent Computing Environments):
-Integrated to provide high-performance, low-latency remote console access to the virtualized endpoints. This allowed for seamless interaction with the Windows 11 targets and Kali Linux attack node, supporting multi-monitor setups and shared clipboards between the lab and the host machine. 
+Once the Domain Controller was stabilized, we populated the environment with users and configured the necessary policies to ensure the endpoints were ready for active monitoring.
 
-Ref 10: SPICE
+Key Implementation Details:
 
-<img width="1895" height="252" alt="Setup Spice" src="https://github.com/user-attachments/assets/48cddf28-9273-40dc-9699-e0b765f79e05" />
+User & Group Creation: Established a set of "Victim" user accounts and administrative groups within Active Directory to simulate a real-world workforce.
+
+Domain Joins: Successfully joined the Win-11-1 and Win-11-2 workstations to the ecorp.local domain, verifying that the DNS settings through pfSense and the DC were correctly resolving.
+
+Security & Audit Policies:
+
+Configured Group Policy Objects (GPOs) to enable "Audit Process Creation" and "Include Command Line in Process Creation Events" (Event ID 4688).
+
+Enabled PowerShell Script Block Logging to ensure that any malicious scripts executed during testing would be captured in the logs for the SIEM to ingest.
+
+Verification: Logged into the workstations using the newly created domain credentials to confirm profile synchronization and policy application.
+
+Ref 15: User Group and Policies
+
+<img width="960" height="725" alt="Setup Users and Groups" src="https://github.com/user-attachments/assets/be8e7398-b450-40af-84d0-5d23c98d348b" />
+
+Ref 16-17: Joined Users to Domain
+
+<img width="1883" height="1010" alt="Setup User Joined Domain confirm" src="https://github.com/user-attachments/assets/5112f93b-2541-4721-adce-d6bca113524a" />
+
+<img width="1908" height="942" alt="Setup, Join endpoint to Domain" src="https://github.com/user-attachments/assets/68cd5bcb-a1d3-4390-9d8c-fa7bd5745610" />
 
 
-### Open vSwitch (OVS) Integration:
-Replaced standard Linux bridges with Open vSwitch within the Proxmox hypervisor. This upgrade provides a more robust, SDN-ready (Software Defined Networking) foundation, enabling advanced features like VLAN tagging at the virtual switch level and providing the infrastructure necessary for deep packet inspection and network telemetry.
-
-Ref 11: OVS
-
-<img width="1134" height="654" alt="Setup OVS" src="https://github.com/user-attachments/assets/8555952f-cda6-4458-86fd-c5260f5f0f23" />
 
 
 
