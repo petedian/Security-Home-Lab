@@ -1,3 +1,4 @@
+
 # Security-Operations-Home-Lab
 
 ## Lab Architecture & Technical Overview
@@ -17,8 +18,7 @@ Networking: Cisco Enterprise Router & Catalyst Switch (Hardware Isolation)
 Virtual Firewall: pfSense (Internal routing and inter-VLAN control)
 
 Ref 1: Network Diagram
-
-<img width="617" height="792" alt="Infrastructure Diagram" src="https://github.com/user-attachments/assets/943587c6-17b6-4c6f-a88c-bb2dfdccd4a4" />
+<img width="1250" height="848" alt="Peters Security Operations Center Setup" src="https://github.com/user-attachments/assets/9ccc3008-9812-411c-8e28-f2a34673681a" />
 
 ### Network Segmentation (VLANs)
 The environment is segmented into three distinct zones to mimic a corporate infrastructure:
