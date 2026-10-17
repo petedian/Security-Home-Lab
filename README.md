@@ -17,7 +17,7 @@ Networking: Cisco Enterprise Router & Catalyst Switch (Hardware Isolation)
 
 Virtual Firewall: pfSense (Internal routing and inter-VLAN control)
 
-Ref 1: Network Diagram
+Ref 1: Network Diagram (updated 10/17/2026 | Isolated ISP through Linux Bridge in Proxmox, removed Cisco Enterprise Router and Switch and made virtual isolated switch.)
 <img width="1250" height="848" alt="Peters Security Operations Center Setup" src="https://github.com/user-attachments/assets/9ccc3008-9812-411c-8e28-f2a34673681a" />
 
 ### Network Segmentation (VLANs)
